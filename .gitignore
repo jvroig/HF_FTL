@@ -10,3 +10,6 @@
 ### Python ###
 __pycache__/
 venv/
+
+### FTL-specific ###
+start.sh
