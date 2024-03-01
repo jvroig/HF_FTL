@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF_TrainUI</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #343a40;
+            color: #fff;
+            padding: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HF TrainUI</h1>
+        <div class="form-group">
+            <label for="messageInput">Enter your message:</label>
+            <input type="text" class="form-control" id="messageInput">
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="sendMessage()">Submit</button>
+        <div id="response"></div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var message = document.getElementById("messageInput").value;
+            fetch('http://localhost:5000/api/message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({message: message}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("response").innerText = data.message;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

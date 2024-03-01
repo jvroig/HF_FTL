@@ -1,0 +1,12 @@
+### Linux ###
+*~
+*~lock*
+
+### macOS ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+### Python ###
+__pycache__/
+venv/
