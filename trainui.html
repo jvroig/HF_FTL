@@ -111,7 +111,10 @@
             background-color: #0d6efd;
             color: #fff;
             padding: 10px 10px;
-            margin-top: 0;
+            margin-top: -10px;
+            margin-left: -10px;
+            margin-right: -10px;
+            margin-bottom: 20px;
         }
 
     </style>
@@ -135,10 +138,11 @@
 
         <div class="row" id="form-controls-upper">
             <div class="form-group col-md-6 pl-5">
-                <label for="messageInput">Name this fine-tune:</label>
+                <label for="ft_name">Name this fine-tune:</label>
                 <input type="text" class="form-control" id="ft_name">
                 <div class="invalid-feedback">Please enter a message.</div>
                 <div id="system message"></div>
+                <div id="response"></div>
             </div>
             <div class="form-group col-md-6 text-center">
                 <button type="button" class="btn btn-success btn-lg btn-block pt-4 pb-4" onclick="sendMessage()">BEGIN TRAINING</button>
@@ -320,8 +324,27 @@
             }
         }
 
+        function getConfigPaths() {
+            fetch('http://localhost:5000/api/config', {
+                method: 'GET',
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Access the model_path and finetuned_path from the response data
+                var modelPath = data.model_path;
+                var finetunedPath = data.finetuned_path;
+
+                // Do something with the paths, such as displaying them on the page
+                document.getElementById("model_path").value = modelPath;
+                document.getElementById("save_path").value  = finetunedPath;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
         function sendMessage() {
-            var messageInput = document.getElementById("messageInput");
+            var messageInput = document.getElementById("ft_name");
             var message = messageInput.value.trim();
 
             if (message === "") {
@@ -355,6 +378,10 @@
                 button.innerHTML = "Submit";
             });
         }
+
+        window.onload = function() {
+            getConfigPaths();
+        };
     </script>
 </body>
 </html>
