@@ -325,7 +325,7 @@
         }
 
         function getConfigPaths() {
-            fetch('http://localhost:5000/api/config', {
+            fetch('http://localhost:5001/api/config', {
                 method: 'GET',
             })
             .then(response => response.json())
@@ -358,7 +358,7 @@
             button.disabled = true;
             button.innerHTML = "Sending...";
 
-            fetch('http://localhost:5000/api/message', {
+            fetch('http://localhost:5001/api/message', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
