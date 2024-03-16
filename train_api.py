@@ -9,8 +9,13 @@ CORS(app)  # Add this line to enable CORS for all routes
 @app.route('/api/message', methods=['POST'])
 def receive_message():
     data = request.get_json()
-    message = data['message']
-    response = {"message": f"I received your message. Your message was: {message}"}
+
+    # Construct the response message
+    response_message = "Received the following data:\n"
+    for key, value in data.items():
+        response_message += f"{key}: {value}\n"
+
+    response = {"message": response_message}
     return jsonify(response)
 
 @app.route('/api/config', methods=['GET'])
@@ -24,7 +29,7 @@ def get_config_paths():
 @app.route('/api/get_data', methods=['GET'])
 def get_data():
     filename = request.args.get('filename')  # Get filename from query parameter
-    filename = '/mnt/AData/VMShared/LLMs/exp_logs/JDG020.log'
+    filename = 'sample.logs' #Debugging line only
     try:
         with open(filename, 'r') as file:
             lines = file.readlines()

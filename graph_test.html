@@ -8,6 +8,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Include Chart.js library -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- local stylesheet -->
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="container">
@@ -24,18 +26,20 @@
     <input class="form-check-input" type="checkbox" id="showEvalLoss" checked onchange="updateChart()">
     <label class="form-check-label" for="showEvalLoss">Show Eval Loss</label>
   </div>
-  <canvas id="lossChart" width="800" height="400"></canvas>
+  <div class="chart_area">
+    <canvas id="lossChart"></canvas>
+  </div>
 </div>
 
 <script>
-let jsonData; // Declare jsonData as a global variable
+let chartData; // Declare chartData as a global variable
 let lossChart; // Declare lossChart as a global variable
 
 async function fetchData(filename) {
     try {
         const response = await fetch(`http://localhost:5001/api/get_data?filename=${filename}`);
         const data = await response.json();
-        return data;
+        return data
     } catch (error) {
         console.error('Error fetching data:', error);
         return null;
@@ -43,11 +47,11 @@ async function fetchData(filename) {
 }
 
 async function getData() {
-    const filename = 'example.json'; // Specify the filename here
-    jsonData = await fetchData(filename); // Assign fetched data to global variable
-    if (jsonData) {
-        console.log('Received data:', jsonData);
-        showChart(jsonData);
+    const filename = 'logs.txt'; // Specify the filename here
+    chartData = await fetchData(filename); // Assign fetched data to global variable
+    if (chartData) {
+        console.log('Received data:', chartData);
+        showChart(chartData);
     } else {
         console.error('Failed to fetch data');
     }
@@ -56,10 +60,10 @@ async function getData() {
 // Call getData function when the page loads or as needed
 window.onload = getData;
 
-function showChart(jsonData) {
-  let epochs = jsonData.map(item => item.epoch);
-  const losses = jsonData.filter(item => item.loss !== undefined).map(item => item.loss);
-  const evalLosses = jsonData.filter(item => item.eval_loss !== undefined).map(item => item.eval_loss);
+function showChart(chartData) {
+  let epochs = chartData.map(item => item.epoch);
+  const losses = chartData.filter(item => item.loss !== undefined).map(item => item.loss);
+  const evalLosses = chartData.filter(item => item.eval_loss !== undefined).map(item => item.eval_loss);
 
   const uniqueEpochs = new Set(epochs)
   epochs = Array.from(uniqueEpochs)
@@ -101,7 +105,7 @@ function showChart(jsonData) {
           },
           ticks: {
             autoSkip: true,
-            maxTicksLimit: 2000,
+            maxTicksLimit: 200,
           }
         },
         y: {
@@ -134,7 +138,7 @@ function updateChart() {
   const startEpoch = parseInt(startEpochInput.value, 10);
 
   // Update chart data and labels
-  const newData = jsonData.filter(item => item.epoch >= startEpoch);
+  const newData = chartData.filter(item => item.epoch >= startEpoch);
   let newEpochs = newData.map(item => item.epoch);
   const uniqueEpochs = new Set(newEpochs)
   newEpochs = Array.from(uniqueEpochs)

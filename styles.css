@@ -1,0 +1,216 @@
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('fonts/IBMPlexSans-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#form-controls-upper,
+#form-controls-main,
+#sidebar {
+    font-family: 'IBM Plex Sans', sans-serif
+}
+
+#main_content_wrapper {
+    background: #1a1a1a;
+    padding: 10px;
+    padding-top: 40px;
+    font-size: 16px;
+}
+
+
+body {
+    background-color: #343a40;
+    color: #fff;
+    padding: 50px;
+}
+
+body {
+    background-image: url('images/gradient.jpg');
+    background-size: auto;
+    background-color: #121212; /* Dark background color */
+    color: #ffffff; /* Light text color */
+} 
+
+.banner {
+    background-color: #1a1a1a; /* Match the container's background color */
+    color: #ffffff; /* Text color for the banner */
+    text-align: center; /* Center-align the text */
+    padding: 10px; /* Add some padding for spacing */
+    font-size: 24px; /* Adjust the font size */
+    font-weight: bold; /* Make the text bold */
+    margin-bottom: 20px; /* Add margin to separate it from the content below */
+}
+
+.container {
+    background-color: #1a1a1a; /* Slightly lighter background for the container */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.form-control {
+    background-color: #2b2b2b; /* Dark input fields */
+    color: #ffffff; /* Light text color for input fields */
+    border: 1px solid #424242; /* Slightly lighter border */
+}
+
+.form-control:focus {
+    background-color: #2b2b2b; /* Dark background color on input focus */
+    color: #ffffff; /* Light text color for input fields */
+}
+
+.form-select {
+    background-color: #2b2b2b; /* Dark select boxes */
+    color: #ffffff; /* Light text color for select options */
+    border: 1px solid #424242; /* Slightly lighter border */
+}
+
+.form-label {
+    color: #ffffff; /* Light label text color */
+}
+
+/* Optional: Style select options */
+select option {
+    background-color: #2b2b2b; /* Dark select options */
+    color: #ffffff; /* Light text color for select options */
+}
+
+[readonly] {
+    color: #a9a9a9; /* Light gray color for readonly text */
+}
+
+.nav-tabs {
+    background-color: #1a1a1a; /* Background color for tabs */
+    border: 0px solid #424242; /* Border color for tabs */
+    border-bottom: 1px solid #424242; /* Border color for tabs */
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 20px;
+}
+
+.nav-tabs .nav-link {
+    background-color: #1a1a1a; /* Dark tab background color */
+    color: #ffffff; /* Light text color for tabs */
+    border: 1px solid #424242; /* Border for tabs */
+    border-radius: 5px 5px 0 0;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #2b2b2b; /* Background color for the active tab */
+    color: #ffffff; /* Text color for the active tab */
+    border: 1px solid #424242; /* Border for the active tab */
+    border-radius: 5px 5px 0 0;
+}
+
+
+.jumbotron {
+    background: none;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.toggle {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    background-color: #111;
+    width: 20px;
+    height: 100px;
+    cursor: pointer;
+    transition: 0.5s;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.toggle:hover {
+    background-color: #333;
+}
+
+.toggle.opened {
+    left: 200px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0px;
+    background-color: #111;
+    padding-top: 20px;
+    transition: 0.5s;
+}
+
+.sidenav a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 0;
+    padding: 0px 10px;
+    transition: margin-left 0.5s;
+}
+
+.main.opened {
+    margin-left: 200px;
+}
+
+.box {
+    border: 1px solid #424242;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.box h2 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.box .form-group {
+    margin-bottom: 15px;
+}
+
+.box label {
+    color: #fff;
+}
+
+.box input[type="text"] {
+    border: 1px solid #555;
+}
+
+.group-label {
+    font-size: 17px;
+    color: #4ba1fe;
+    color: #cccccc;
+    background-color: #2b2b2b;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 10px 10px;
+    margin-top: -10px;
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-bottom: 20px;
+}
+
+.chart_area {
+    background-color: #ffffff;
+    max-width: 1000px;
+    max-height: 600px;    
+}
+
+.btn-engage {
+    background-color: #e16e03;
+    color: #ffffff;
+}

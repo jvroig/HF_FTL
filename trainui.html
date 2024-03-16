@@ -4,120 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HF-FTL: Fine-Tune Locally</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        @font-face {
-            font-family: 'IBM Plex Sans';
-            src: url('fonts/IBMPlexSans-Regular.ttf');
-            font-weight: normal;
-            font-style: normal;
-        }
-        
-        #form-controls-upper,
-        #form-controls-main,
-        #sidebar {
-            font-family: 'IBM Plex Sans', sans-serif
-        }
-
-        body {
-            background-color: #343a40;
-            color: #fff;
-            padding: 50px;
-        }
-
-        .toggle {
-            position: fixed;
-            left: 0;
-            top: 50%;
-            background-color: #111;
-            width: 20px;
-            height: 100px;
-            cursor: pointer;
-            transition: 0.5s;
-            z-index: 999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-        }
-
-        .toggle:hover {
-            background-color: #333;
-        }
-
-        .toggle.opened {
-            left: 200px;
-        }
-
-        .sidenav {
-            height: 100%;
-            width: 200px;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0px;
-            background-color: #111;
-            padding-top: 20px;
-            transition: 0.5s;
-        }
-
-        .sidenav a {
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 20px;
-            color: #818181;
-            display: block;
-        }
-
-        .sidenav a:hover {
-            color: #f1f1f1;
-        }
-
-        .main {
-            margin-left: 0;
-            padding: 0px 10px;
-            transition: margin-left 0.5s;
-        }
-
-        .main.opened {
-            margin-left: 200px;
-        }
-
-        .box {
-            border: 1px solid #555;
-            background-color: #2d3238;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .box h2 {
-            color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .box .form-group {
-            margin-bottom: 15px;
-        }
-
-        .box label {
-            color: #fff;
-        }
-
-        .box input[type="text"] {
-            border: 1px solid #555;
-        }
-
-        .group-label {
-            background-color: #0d6efd;
-            color: #fff;
-            padding: 10px 10px;
-            margin-top: -10px;
-            margin-left: -10px;
-            margin-right: -10px;
-            margin-bottom: 20px;
-        }
-
-    </style>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="toggle opened" id="toggle" onclick="toggleNav()">&#60;</div>
@@ -129,151 +18,157 @@
 
     <div class="main opened" id="mainContent">
         <!-- <h1>HF-FTL: Fine-Tune Locally</h1>  -->
-        <div class="jumbotron jumbotron-fluid bg-dark text-light">
+        <div class="jumbotron jumbotron-fluid text-light">
             <div class="container-fluid">
                 <h1 class="display-4">HF-FTL: Fine-Tune Locally</h1>
                 <p class="lead">Local LLM fine-tuning using the Hugging Face stack.</p>
             </div>
         </div>
 
-        <div class="row" id="form-controls-upper">
-            <div class="form-group col-md-6 pl-5">
-                <label for="ft_name">Name this fine-tune:</label>
-                <input type="text" class="form-control" id="ft_name">
-                <div class="invalid-feedback">Please enter a message.</div>
-                <div id="system message"></div>
-                <div id="response"></div>
-            </div>
-            <div class="form-group col-md-6 text-center">
-                <button type="button" class="btn btn-success btn-lg btn-block pt-4 pb-4" onclick="sendMessage()">BEGIN TRAINING</button>
-            </div>
-        </div>
-
-        <div class="container-fluid mt-1" id="form-controls-main">
-            <div class="row">
-
-                <div class="col-md-3">
-                    <div class="box">
-                        <h4 class="group-label">Model Paths</h4>
-                        <div class="form-group">
-                            <label for="model_name" class="mt-3">Model Name:</label>
-                            <input type="text" class="form-control" id="model_name">
-                        </div>
-                        <div class="form-group">
-                            <label for="model_path" class="mt-3">Model Path:</label>
-                            <input type="text" class="form-control" id="model_path">
-                        </div>
-                        <div class="form-group">
-                            <label for="save_path" class="mt-3">Save Path:</label>
-                            <input type="text" class="form-control" id="save_path">
-                        </div>
-                    </div>
+        <div id="main_content_wrapper">
+            <div class="row" id="form-controls-upper">
+                <div class="form-group col-md-3 ml-3">
+                    <button type="button" class="btn btn-primary" onclick="sendMessage()">ENGAGE!</button>
                 </div>
-
-                <div class="col-md-3">
-                    <div class="box">
-                        <h4 class="group-label">Basic</h4>
-                        <div class="form-group">
-                            <label for="num_epoch">Epochs:</label>
-                            <input type="range" class="form-control-range" id="num_epoch_range" min="1" max="99" value="2" oninput="num_epoch.value = num_epoch_range.value">
-                            <input type="number" class="form-control" id="num_epoch" min="1" max="99" value="2" oninput="num_epoch_range.value = num_epoch.value">             
-                        </div>
-                        <div class="form-group">
-                            <label for="batch_size">Batch Size:</label>
-                            <input type="range" class="form-control-range" id="batch_size_range" min="1" max="512" value="1" oninput="batch_size.value = batch_size_range.value" step="1">
-                            <input type="number" class="form-control" id="batch_size" min="1" max="512" value="1" oninput="batch_size_range.value = batch_size.value">             
-                        </div>
-                        <div class="form-group">
-                            <label for="learning_rate">Learning Rate:</label>
-                            <input type="range" class="form-control-range" id="learning_rate_range" min="0.00001" max="0.001" step="0.00001" value="0.0001" oninput="learning_rate.value = learning_rate_range.value">
-                            <input type="number" step="0.00001" max="0.1" class="form-control" id="learning_rate" value="0.0001" oninput="learning_rate_range.value = learning_rate.value">             
-                        </div>
-                        <div class="form-group">
-                            <label for="warm_up">Warm-up Steps:</label>
-                            <input type="range" class="form-control-range" id="warm_up_range" min="0" max="1000" value="500" oninput="warm_up.value = warm_up_range.value">
-                            <input type="number" class="form-control" id="warm_up" value="500" oninput="warm_up_range.value = warm_up.value">             
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="box">
-                        <h4 class="group-label">Memory Controls</h4>
-                        <div class="form-group">
-                            <label for="model_dtype" class="mt-3">Model Data Type:</label>
-                            <select class="form-control" id="model_dtype">
-                                <option value="float32">float32</option>
-                                <option value="float16">float16</option>
-                                <option value="bfloat16" selected>bfloat16</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="optimizer" class="mt-3">Optimizer:</label>
-                            <select class="form-control" id="optimizer">
-                                <option value="adamw_torch">adamw_torch</option>
-                                <option value="adafactor" selected>adafactor</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="grad_check" class="mt-3">Gradient Checkpointing:</label>
-                            <select class="form-control" id="grad_check">
-                                <option value="true">TRUE</option>
-                                <option value="false">FALSE</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="grad_acc_steps">Gradient Accumulation Steps:</label>
-                            <input type="range" class="form-control-range" id="grad_acc_steps_range" min="1" max="512" value="1" oninput="grad_acc_steps.value = grad_acc_steps_range.value">
-                            <input type="number" class="form-control" id="grad_acc_steps" min="1" max="512" value="1" oninput="grad_acc_steps_range.value = grad_acc_steps.value">             
-                        </div>                        
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="box">
-                        <h4 class="group-label">Logging and Saving</h4>
-                        <div class="form-group">
-                            <label for="log-strat" class="mt-3">Logging Strategy:</label>
-                            <select class="form-control" id="log-strat">
-                                <option value="Epoch" selected>Epoch</option>
-                                <option value="Steps">Steps</option>
-                                <option value="None">None</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="eval-strat" class="mt-3">Evaluation Strategy:</label>
-                            <select class="form-control" id="eval-strat">
-                                <option value="Epoch" selected>Epoch</option>
-                                <option value="Steps">Steps</option>
-                                <option value="None">None</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="save-strat" class="mt-3">Save Strategy:</label>
-                            <select class="form-control" id="save-strat">
-                                <option value="Epoch" selected>Epoch</option>
-                                <option value="Steps">Steps</option>
-                                <option value="None">None</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="strategy-steps">Strategy Steps:</label>
-                            <input type="range" class="form-control-range" id="strategy-steps-range" min="1" max="1000" value="250" oninput="strategy_steps.value = strategy_steps_range.value" step="1">
-                            <input type="number" class="form-control" id="strategy-steps" min="1" max="1000" value="250" oninput="strategy_steps_range.value = strategy_steps.value">
-                        </div>                        
-                        <div class="form-group">
-                            <label for="load_best_model" class="mt-3">Load Best Model At End:</label>
-                            <select class="form-control" id="load_best_model">
-                                <option value="true">TRUE</option>
-                                <option value="false">FALSE</option>
-                            </select>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <div id="system message"></div>
+                    <div id="response"></div>
                 </div>
             </div>
-        </div>
-        
+
+            <div class="container-fluid mt-1" id="form-controls-main">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="box">
+                            <h4 class="group-label">Model Paths</h4>
+                            <div class="form-group">
+                                <label for="ft_name" class="mt-3">Fine-Tune Name:</label>
+                                <input type="text" class="form-control" id="ft_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="model_name" class="mt-3">Model Name:</label>
+                                <input type="text" class="form-control" id="model_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="model_path" class="mt-3">Model Path:</label>
+                                <input type="text" class="form-control" id="model_path">
+                            </div>
+                            <div class="form-group">
+                                <label for="save_path" class="mt-3">Save Path:</label>
+                                <input type="text" class="form-control" id="save_path">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="box">
+                            <h4 class="group-label">General</h4>
+                            <div class="form-group">
+                                <label for="num_epoch">Epochs:</label>
+                                <input type="range" class="form-control-range" id="num_epoch_range" min="1" max="99" value="2" oninput="num_epoch.value = num_epoch_range.value">
+                                <input type="number" class="form-control" id="num_epoch" min="1" max="99" value="2" oninput="num_epoch_range.value = num_epoch.value">             
+                            </div>
+                            <div class="form-group">
+                                <label for="batch_size">Batch Size:</label>
+                                <input type="range" class="form-control-range" id="batch_size_range" min="1" max="512" value="1" oninput="batch_size.value = batch_size_range.value" step="1">
+                                <input type="number" class="form-control" id="batch_size" min="1" max="512" value="1" oninput="batch_size_range.value = batch_size.value">             
+                            </div>
+                            <div class="form-group">
+                                <label for="learning_rate">Learning Rate:</label>
+                                <input type="range" class="form-control-range" id="learning_rate_range" min="0.00001" max="0.001" step="0.00001" value="0.0001" oninput="learning_rate.value = learning_rate_range.value">
+                                <input type="number" step="0.00001" max="0.1" class="form-control" id="learning_rate" value="0.0001" oninput="learning_rate_range.value = learning_rate.value">             
+                            </div>
+                            <div class="form-group">
+                                <label for="weight_decay">Weight Decay:</label>
+                                <input type="range" class="form-control-range" id="weight_decay_range" min="0.0001" max="0.1" step="0.0001" value="0.01" oninput="weight_decay.value = weight_decay_range.value">
+                                <input type="number" step="0.0001" max="0.1" class="form-control" id="weight_decay" value="0.01" oninput="weight_decay_range.value = weight_decay.value">             
+                            </div>                            
+                            <div class="form-group">
+                                <label for="warm_up">Warm-up Steps:</label>
+                                <input type="range" class="form-control-range" id="warm_up_range" min="0" max="1000" value="500" oninput="warm_up.value = warm_up_range.value">
+                                <input type="number" class="form-control" id="warm_up" value="500" oninput="warm_up_range.value = warm_up.value">             
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="box">
+                            <h4 class="group-label">Memory Controls</h4>
+                            <div class="form-group">
+                                <label for="model_dtype" class="mt-3">Model Data Type:</label>
+                                <select class="form-control" id="model_dtype">
+                                    <option value="float32">float32</option>
+                                    <option value="float16">float16</option>
+                                    <option value="bfloat16" selected>bfloat16</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="optimizer" class="mt-3">Optimizer:</label>
+                                <select class="form-control" id="optimizer">
+                                    <option value="adamw_torch">adamw_torch</option>
+                                    <option value="adafactor" selected>adafactor</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="grad_check" class="mt-3">Gradient Checkpointing:</label>
+                                <select class="form-control" id="grad_check">
+                                    <option value="true">TRUE</option>
+                                    <option value="false">FALSE</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="grad_acc_steps">Gradient Accumulation Steps:</label>
+                                <input type="range" class="form-control-range" id="grad_acc_steps_range" min="1" max="512" value="1" oninput="grad_acc_steps.value = grad_acc_steps_range.value">
+                                <input type="number" class="form-control" id="grad_acc_steps" min="1" max="512" value="1" oninput="grad_acc_steps_range.value = grad_acc_steps.value">             
+                            </div>                        
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="box">
+                            <h4 class="group-label">Logging and Saving</h4>
+                            <div class="form-group">
+                                <label for="log-strat" class="mt-3">Logging Strategy:</label>
+                                <select class="form-control" id="log-strat">
+                                    <option value="Epoch" selected>Epoch</option>
+                                    <option value="Steps">Steps</option>
+                                    <option value="None">None</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-strat" class="mt-3">Evaluation Strategy:</label>
+                                <select class="form-control" id="eval-strat">
+                                    <option value="Epoch" selected>Epoch</option>
+                                    <option value="Steps">Steps</option>
+                                    <option value="None">None</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="save-strat" class="mt-3">Save Strategy:</label>
+                                <select class="form-control" id="save-strat">
+                                    <option value="Epoch" selected>Epoch</option>
+                                    <option value="Steps">Steps</option>
+                                    <option value="None">None</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="strategy-steps">Strategy Steps:</label>
+                                <input type="range" class="form-control-range" id="strategy-steps-range" min="1" max="1000" value="250" oninput="strategy_steps.value = strategy_steps_range.value" step="1">
+                                <input type="number" class="form-control" id="strategy-steps" min="1" max="1000" value="250" oninput="strategy_steps_range.value = strategy_steps.value">
+                            </div>                        
+                            <div class="form-group">
+                                <label for="load_best_model" class="mt-3">Load Best Model At End:</label>
+                                <select class="form-control" id="load_best_model">
+                                    <option value="true">TRUE</option>
+                                    <option value="false">FALSE</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
     </div>
 
     <script>
@@ -344,26 +239,55 @@
         }
 
         function sendMessage() {
-            var messageInput = document.getElementById("ft_name");
-            var message = messageInput.value.trim();
+            // Get references to all form inputs
+            var ft_name = document.getElementById("ft_name").value.trim();
+            var model_name = document.getElementById("model_name").value.trim();
+            var model_path = document.getElementById("model_path").value.trim();
+            var save_path = document.getElementById("save_path").value.trim();
+            var num_epoch = document.getElementById("num_epoch").value;
+            var batch_size = document.getElementById("batch_size").value;
+            var learning_rate = document.getElementById("learning_rate").value;
+            var weight_decay = document.getElementById("weight_decay").value;
+            var warm_up = document.getElementById("warm_up").value;
+            var model_dtype = document.getElementById("model_dtype").value;
+            var optimizer = document.getElementById("optimizer").value;
+            var grad_check = document.getElementById("grad_check").value;
+            var grad_acc_steps = document.getElementById("grad_acc_steps").value;
+            var log_strat = document.getElementById("log-strat").value;
+            var eval_strat = document.getElementById("eval-strat").value;
+            var save_strat = document.getElementById("save-strat").value;
+            var strategy_steps = document.getElementById("strategy-steps").value;
+            var load_best_model = document.getElementById("load_best_model").value;
 
-            if (message === "") {
-                messageInput.classList.add("is-invalid");
-                return;
-            }
+            // Create an object to store form data
+            var formData = {
+                ft_name: ft_name,
+                model_name: model_name,
+                model_path: model_path,
+                save_path: save_path,
+                num_epoch: num_epoch,
+                batch_size: batch_size,
+                learning_rate: learning_rate,
+                weight_decay: weight_decay,
+                warm_up: warm_up,
+                model_dtype: model_dtype,
+                optimizer: optimizer,
+                grad_check: grad_check,
+                grad_acc_steps: grad_acc_steps,
+                log_strat: log_strat,
+                eval_strat: eval_strat,
+                save_strat: save_strat,
+                strategy_steps: strategy_steps,
+                load_best_model: load_best_model
+            };
 
-            messageInput.classList.remove("is-invalid");
-
-            var button = document.querySelector("button");
-            button.disabled = true;
-            button.innerHTML = "Sending...";
-
+            // Send form data to backend API
             fetch('http://localhost:5001/api/message', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({message: message}),
+                body: JSON.stringify(formData),
             })
             .then(response => response.json())
             .then(data => {
@@ -372,10 +296,6 @@
             .catch((error) => {
                 console.error('Error:', error);
                 document.getElementById("response").innerText = "An error occurred.";
-            })
-            .finally(() => {
-                button.disabled = false;
-                button.innerHTML = "Submit";
             });
         }
 
