@@ -12,17 +12,17 @@ def generate_bash_script():
 
     if os.name == "nt":
         # Activate the virtual environment
-        activate_script = "/".join(["venv", "Scripts", "activate.bat"])
+        activate_script = "/".join(["venv", "Scripts", "activate"])
         # activate_script = os.path.join("venv", "Scripts", "activate.bat")
         # activate_script = activate_script.replace("\\", "\\\\")
 
         # Install dependencies from requirements.txt
-        pip_path = "/".join(['venv', 'Scripts', 'pip.exe'])
+        pip_path = "/".join(['venv', 'Scripts', 'pip'])
         # pip_path = os.path.join('venv', 'Scripts', 'pip.exe')
         # pip_path = pip_path.replace("\\", "\\\\")
 
         # Start the API backend server
-        python_path = "/".join(['venv', 'Scripts', 'python.exe'])
+        python_path = "/".join(['venv', 'Scripts', 'python'])
         # python_path = os.path.join('venv', 'Scripts', 'python.exe')
         # python_path = python_path.replace("\\", "\\\\")
 
