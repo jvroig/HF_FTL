@@ -95,8 +95,9 @@ select option {
 }
 
 .nav-tabs .nav-link.active {
-    background-color: #2b2b2b; /* Background color for the active tab */
-    color: #ffffff; /* Text color for the active tab */
+    background-color: #e16e03; /* Background color for the active tab */
+    color: #000000; /* Text color for the active tab */
+    font-weight: bold;
     border: 1px solid #424242; /* Border for the active tab */
     border-radius: 5px 5px 0 0;
 }
@@ -149,7 +150,7 @@ select option {
     margin-right: 10px;
     margin-bottom: 0px;
     margin-top: 0px;
-    padding-top: 5px;
+    padding-top: 0px;
     padding-bottom: 5px;
     padding-left: 15px;
     padding-right: 15px;
@@ -160,7 +161,7 @@ select option {
 }
 
 .sidenav a:hover {
-    color: #d1d1d1;
+    color: #eeeeee;
     background-color: #212121;
     border-radius: 5px;
 }
@@ -170,6 +171,37 @@ select option {
     font-size: 18px;
     vertical-align: bottom;
 }
+
+#system_message {
+    color: #e16e03;
+    height: 80px;
+    font-size: 12px;
+    resize: none;
+}
+
+#system_message::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+    background-color: #333; /* Background color of the scrollbar track */
+}
+
+/* Style the scrollbar thumb */
+#system_message::-webkit-scrollbar-thumb {
+    background-color: #666; /* Color of the scrollbar thumb */
+}
+
+/* Style the spinner arrows for number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Remove default appearance */
+    appearance: none; /* Remove default appearance for non-WebKit browsers */
+    height: auto;
+    margin: 1px; 
+    color: #000000; /* Change arrow color */
+    background-color: #444444; /* Change background color */
+    border-radius: 0%; /* Make the arrows circular */
+    padding: 4px; /* Adjust padding for spacing */
+}
+
 
 .main {
     margin-left: 0;
@@ -240,8 +272,10 @@ select option {
 
 input[type=range]{
     -webkit-appearance: none;
+    appearance: none;
     margin-top: 7px;
     margin-bottom: 4px;
+    width: 100%;
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -263,7 +297,7 @@ input[type=range]:focus {
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-    width: 300px;
+    width: 100%;
     height: 5px;
     background: #696969;
     border: none;
@@ -272,3 +306,27 @@ input[type=range]::-webkit-slider-runnable-track {
 input[type=range]:focus::-webkit-slider-runnable-track {
     background: #797979;
 }
+
+
+input[type="text"],
+input[type="number"],
+textarea {
+    transition: box-shadow 0.3s ease; /* Smooth transition for the box-shadow */
+}
+
+/* Style the input when it is focused */
+input[type="text"]:focus,
+input[type="number"]:focus,
+select.form-control:focus,
+textarea:focus {
+    outline: none; /* Remove the default focus outline */
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5); /* Orange glowing shadow */
+    border-color: #e16e03;
+}
+
+
+::selection {
+    color: #000000;
+    background-color: #e16e03;    
+}
+
