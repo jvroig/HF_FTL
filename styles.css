@@ -145,15 +145,30 @@ select option {
 }
 
 .sidenav a {
-    padding: 10px 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
     text-decoration: none;
-    font-size: 20px;
-    color: #818181;
+    font-size: 14px;
+    color: #eeeeee;
     display: block;
 }
 
 .sidenav a:hover {
-    color: #f1f1f1;
+    color: #d1d1d1;
+    background-color: #212121;
+    border-radius: 5px;
+}
+
+.sidenav-icon {
+    color: #cccccc;
+    font-size: 18px;
+    vertical-align: bottom;
 }
 
 .main {
@@ -207,10 +222,53 @@ select option {
 .chart_area {
     background-color: #ffffff;
     max-width: 1000px;
-    max-height: 600px;    
+    max-height: 600px;
 }
 
 .btn-engage {
     background-color: #e16e03;
-    color: #ffffff;
+    font-weight: bold;
+    color: #111;
+}
+
+.btn-engage:hover {
+    background-color: #e16e03;
+    font-weight: bold;
+    color: #111;
+}
+
+
+input[type=range]{
+    -webkit-appearance: none;
+    margin-top: 7px;
+    margin-bottom: 4px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+
+input[type=range]::-webkit-slider-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #e16e03;
+    margin-top: -6px;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 5px;
+    background: #696969;
+    border: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #797979;
 }
