@@ -20,16 +20,11 @@
 
 
 body {
-    background-color: #343a40;
-    color: #fff;
     padding: 50px;
-}
-
-body {
     background-image: url('images/gradient.jpg');
     background-size: auto;
     background-color: #121212; /* Dark background color */
-    color: #ffffff; /* Light text color */
+    color: #cccccc; /* Light text color */
 } 
 
 .banner {
@@ -63,10 +58,6 @@ body {
     background-color: #2b2b2b; /* Dark select boxes */
     color: #ffffff; /* Light text color for select options */
     border: 1px solid #424242; /* Slightly lighter border */
-}
-
-.form-label {
-    color: #ffffff; /* Light label text color */
 }
 
 /* Optional: Style select options */
@@ -150,7 +141,7 @@ select option {
     margin-right: 10px;
     margin-bottom: 0px;
     margin-top: 0px;
-    padding-top: 0px;
+    padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 15px;
     padding-right: 15px;
@@ -166,10 +157,16 @@ select option {
     border-radius: 5px;
 }
 
+.bi {
+    color: #e16e03;    
+}
+
 .sidenav-icon {
-    color: #cccccc;
-    font-size: 18px;
+    color: #999999;
+    font-size: 15px;
     vertical-align: bottom;
+    padding-bottom:0px;
+    padding-top:0px;
 }
 
 #system_message {
@@ -230,7 +227,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .box label {
-    color: #fff;
+    color: #ccc;
 }
 
 .box input[type="text"] {
@@ -328,4 +325,3 @@ textarea:focus {
     color: #000000;
     background-color: #e16e03;    
 }
-
