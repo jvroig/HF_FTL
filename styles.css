@@ -282,7 +282,6 @@ input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
 }
 
-
 input[type=range]::-webkit-slider-thumb {
     border: none;
     height: 16px;

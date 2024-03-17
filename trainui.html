@@ -358,11 +358,18 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById("system_message").value = data.message;
+                switchToVisualize();
             })
             .catch((error) => {
                 console.error('Error:', error);
                 document.getElementById("system_message").value = "An error occurred.";
             });
+        }
+
+        function switchToVisualize() {
+            // Activate the Visualize tab
+            var tab = new bootstrap.Tab(document.getElementById('visualize-tab'));
+            tab.show();
         }
 
         window.onload = function() {
