@@ -306,7 +306,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 
 input[type="text"],
 input[type="number"],
-textarea {
+textarea.form-control {
     transition: box-shadow 0.3s ease; /* Smooth transition for the box-shadow */
 }
 
@@ -314,7 +314,7 @@ textarea {
 input[type="text"]:focus,
 input[type="number"]:focus,
 select.form-control:focus,
-textarea:focus {
+textarea.form-control:focus {
     outline: none; /* Remove the default focus outline */
     box-shadow: 0 0 10px rgba(255, 165, 0, 0.5); /* Orange glowing shadow */
     border-color: #e16e03;
