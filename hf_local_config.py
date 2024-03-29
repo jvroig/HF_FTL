@@ -13,6 +13,6 @@ finetuned_path  = os.environ['HF_LOCAL_MODEL_PATH']
 
 #Finetuning logs
 #FIXME: rename vars to be more descriptive
-output_dir_base        = os.environ['HF_LOCAL_FINETUNES_PATH']
+output_dir_base        = os.environ['HF_LOCAL_OUTPUT_PATH']
 output_dir_checkpoints = output_dir_base + 'results' + os.sep
 output_dir_logs        = output_dir_base + 'logs' + os.sep
