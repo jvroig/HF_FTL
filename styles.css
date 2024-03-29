@@ -27,6 +27,12 @@ body {
     color: #cccccc; /* Light text color */
 } 
 
+iframe {
+    height: 100%;
+    width: 100%;
+    min-height: 800px;
+}
+
 .banner {
     background-color: #1a1a1a; /* Match the container's background color */
     color: #ffffff; /* Text color for the banner */
