@@ -240,6 +240,21 @@ input[type="number"]::-webkit-outer-spin-button {
     border: 1px solid #555;
 }
 
+/*
+Reduce font size inside the controls area
+*/
+.box div {
+    font-size: 14px;
+}
+
+.box div input {
+    font-size: 14px;
+}
+
+.box div select {
+    font-size: 14px;
+}
+
 .group-label {
     font-size: 17px;
     color: #4ba1fe;
