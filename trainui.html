@@ -322,7 +322,16 @@
                 <div class="tab-pane fade" id="test-inference" role="tabpanel" aria-labelledby="testInferenceTab">
                     <!-- Test/Inference Placeholder -->
                     <div class="container mt-3">
-                        <p>Test/Inference content goes here</p>
+                        <!-- Chat container -->
+                        <div id="box chat-container">
+                            <!-- Chat messages area -->
+                            <div id="chat-messages"></div>
+                            <!-- Input form for sending messages -->
+                            <form id="chat-form">
+                                <textarea id="chat-input" class="form-control"></textarea>
+                                <button type="button" class="btn btn-engage" onclick="sendMessage()">Send</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -334,35 +343,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
      
     <script>
-        // document.getElementById("batch_size_range").addEventListener("input", function() {
-        //     var value = parseInt(this.value);
-        //     var nearestPowerOfTwo = 1;
-        //     for (var i = 1; i <= 9; i++) { // Checking powers of 2 up to 512 (2^9)
-        //         if (value > Math.pow(2, i) && value <= Math.pow(2, i + 1)) {
-        //             nearestPowerOfTwo = Math.pow(2, i + 1); // Set it to the next power of 2
-        //             break;
-        //         }
-        //     }
-        //     this.value = Math.min(nearestPowerOfTwo, 512); // Ensure value doesn't exceed 512
-        //     document.getElementById("batch_size").value = this.value;
-        //     console.log(this.step)
-        // });
-
-        // document.getElementById("grad_acc_steps_range").addEventListener("input", function() {
-        //     var value = parseInt(this.value);
-        //     var nearestPowerOfTwo = 1;
-        //     for (var i = 1; i <= 9; i++) { // Checking powers of 2 up to 512 (2^9)
-        //         if (value > Math.pow(2, i) && value <= Math.pow(2, i + 1)) {
-        //             nearestPowerOfTwo = Math.pow(2, i + 1); // Set it to the next power of 2
-        //             break;
-        //         }
-        //     }
-        //     this.value = Math.min(nearestPowerOfTwo, 512); // Ensure value doesn't exceed 512
-        //     document.getElementById("grad_acc_steps").value = this.value;
-        //     console.log(this.step)
-        // });
-
-
         function toggleNav() {
             var sidebar = document.getElementById("sidebar");
             var toggle = document.getElementById("toggle");
@@ -501,6 +481,61 @@
                 document.getElementById("system_message").value = "An error occurred.";
             });
         }
+
+        function sendMessage() {
+            // Get the message text from the input field
+            var messageInput = document.getElementById("chat-input");
+            var message = messageInput.value.trim();
+
+            if (message !== "") {
+                // Display the user's message in the chat
+                displayMessage("user", message);
+
+                // Clear the input field after sending the message
+                messageInput.value = "";
+
+                // Send the message to the query endpoint API
+                fetch('http://localhost:5001/api/query_endpoint', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        prompt: message,
+                        temperature: 0.8,
+                        max_output_tokens: 1000,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Display the response from the API in the chat
+                    displayMessage("bot", data.message);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    // Display an error message in the chat if something went wrong
+                    displayMessage("bot", "An error occurred while processing your request.");
+                });
+            }
+        }
+
+
+        function displayMessage(sender, message) {
+            // Replace newline characters with <br> tags
+            var formattedMessage = message.replace(/\n/g, "<br>");
+
+            // Create a new message container
+            var messageContainer = document.createElement("div");
+            messageContainer.classList.add("message", sender);
+
+            // Set the inner HTML of the message container
+            messageContainer.innerHTML = formattedMessage;
+
+            // Append the message container to the chat messages container
+            document.getElementById("chat-messages").appendChild(messageContainer);
+        }
+
+
 
         function switchToVisualize() {
             // Activate the Visualize tab
